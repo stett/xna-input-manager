@@ -15,6 +15,7 @@ namespace input
     {
         #region Members
         KeyboardManager keyboard;
+        MouseManager mouse;
         #endregion
 
 
@@ -23,22 +24,29 @@ namespace input
         {
             get { return keyboard; }
         }
+        public MouseManager Mouse
+        {
+            get { return mouse; }
+        }
         #endregion
 
 
         #region Constructors
-        public InputManager(Game game, bool add_services=true, bool add_components=true)
+        public InputManager(Game game, bool add_services = true, bool add_components = true)
         {
             keyboard = new KeyboardManager(game);
+            mouse = new MouseManager(game);
 
             if (add_services)
             {
                 game.Services.AddService(typeof(InputManager), this);
                 game.Services.AddService(typeof(KeyboardManager), keyboard);
+                game.Services.AddService(typeof(MouseManager), mouse);
             }
             if (add_components)
             {
                 game.Components.Add(keyboard);
+                game.Components.Add(mouse);
             }
         }
         #endregion
